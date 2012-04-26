@@ -14,10 +14,9 @@ public class Main {
 		//String[] program = {IS.MOV_A+"12", IS.MOV_B_A, IS.MOV_A+"00", "F000"};
 		String[] assem = {"mov a $10", "mov b a"};
 		Assem as = new Assem(assem);
-		String[] program = as.assembleAll();
 		
-		for(String line : program){
-			System.out.println(program);
+		for(int i=0; i<assem.length; i++){
+			System.out.println(as.assembleLine());
 		}
 		//Control c = new Control(program);
 		//c.run();
