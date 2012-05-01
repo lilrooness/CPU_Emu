@@ -1,21 +1,21 @@
-Each opcode must me entered as a 16 bit hex number
+Each opcode must me entered as a 16 bit (4 digit) hex number
 EG the opcode 03 to move the value of B to the A 
 register must be written as 0300
 
 Please note, that at the moment I have not written 
 a compiler from assembly language to opcodes
 
-Mov Value to A: 01**
-Mov Value to B: 02**
-Mov Value of B to A: 03
-Mov Value of A to B: 04
-Mov Value out of memory location into A: 05**
-Mov Value out of memory location into B: 06**
-Mov Value from A to PC: 07
-Mov Value from B to PC: 08
-Mov value to PC: 09**
-Mov value of A into memory location: 0A**
-Mov Value of B into memory location: 0B**
+Move Value to A: 01**
+Move Value to B: 02**
+Move Value of B to A: 03
+Move Value of A to B: 04
+Move Value out of memory location into A: 05**
+Move Value out of memory location into B: 06**
+Move Value from A to PC: 07
+Move Value from B to PC: 08
+Move value to PC: 09**
+Move value of A into memory location: 0A**
+Move Value of B into memory location: 0B**
 Add A and B and store result in A: 0C
 Add B and A and store the result in B: 0D
 Add value to A and store result in A: 0E**

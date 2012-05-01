@@ -1,8 +1,6 @@
 package frangoudes.personal.test;
 
-import frangoudes.personal.cpu.Control;
 import frangoudes.personal.asm.Assem;
-import frangoudes.personal.cpu.IS;
 
 public class Main {
 
@@ -18,8 +16,5 @@ public class Main {
 		for(int i=0; i<assem.length; i++){
 			System.out.println(as.assembleLine());
 		}
-		//Control c = new Control(program);
-		//c.run();
 	}
-
 }
