@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-if(scalar(@ARGV)<1){
-	die("Usage: <FILENAME>\n");
+if(scalar(@ARGV)<2){
+	die("Usage: <INPUT> <OUTPUT>\n");
 }
 
 #load assmebly file
@@ -26,6 +26,9 @@ for$command(@commands){
 
 print join("\n",@opcodes);
 print "\n";
+open(OUTPUT, '>',$ARGV[1]);
+print OUTPUT join("\n",@opcodes);
+close(OUTPUT);
 
 #compiles a MOV command
 sub mov{
