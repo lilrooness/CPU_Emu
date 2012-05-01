@@ -5,8 +5,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +40,7 @@ public class Window extends JFrame implements Runnable{
 	private JButton step;
 	private JButton stop;
 	private JButton load;
+	private JButton file;
 	private GridBagConstraints c;
 	private Thread loop;
 	private boolean stopped = true;
@@ -137,6 +145,13 @@ public class Window extends JFrame implements Runnable{
 		JScrollPane sp = new JScrollPane(code);
 		this.add(sp, c);
 		
+		c.gridx = 0;
+		c.gridy = 6;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		file = new JButton("From File");
+		file.addActionListener(new Handler());
+		this.add(file, c);
+		
 		loop.start();
 		this.pack();
 		this.setResizable(false);
@@ -198,6 +213,28 @@ public class Window extends JFrame implements Runnable{
 	}
 	
 	/**
+	 * reads in opcodes from a file into a String array and then returns the array
+	 * @param filename
+	 * @return
+	 */
+	public ArrayList<String> loadProgram(String filename){
+		ArrayList<String> opcodes = new ArrayList<String>();
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File(filename)));
+			String code;
+			while((code = in.readLine())!=null){
+				opcodes.add(code);
+			}
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Could not locate file: "+filename);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Trouble reading file: "+filename);
+		}
+		
+		return opcodes;
+	}
+	
+	/**
 	 * Handles all events triggered by button presses
 	 * @author Joe
 	 *
@@ -222,6 +259,16 @@ public class Window extends JFrame implements Runnable{
 				}
 			}else if(e.getSource() == load){
 				cpu = new Control(makeProgram());
+			}else if(e.getSource() == file){
+				JFileChooser f= new JFileChooser();
+				int value =f.showOpenDialog(null);
+				if(value == JFileChooser.APPROVE_OPTION){
+					ArrayList<String> opcodes = loadProgram(f.getSelectedFile().getAbsolutePath());
+					for(int i=0; i<opcodes.size(); i++){
+						code.append(opcodes.get(i)+"\n");
+					}
+				}
+				
 			}
 		}
 		
