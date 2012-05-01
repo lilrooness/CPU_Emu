@@ -13,17 +13,21 @@ open(OPCODES, "opcodes") or die("Cannot find opcodes file\n");
 my @opcodes;
 
 for$command(@commands){
-	#pass mov commands
+	#pass MOV commands
 	if($command =~m/^MOV.*/i){
 		push(@opcodes, mov($command));
+	#pass ADD commands
 	}elsif($command=~m/^ADD.*/i){
-		
+		push(@opcodes, add($command));
+	}elsif($command=~m/^SUB.*/i){
+		push(@opcodes, subt($command));
 	}
 }
 
 print join("\n",@opcodes);
 print "\n";
 
+#compiles a MOV command
 sub mov{
 	$l=$_[0];
 	print "$l";
@@ -59,5 +63,39 @@ sub mov{
 	}else{
 		print("Error in line $l");
 		die();
+	}
+}
+
+#compiles an ADD command
+sub add{
+	$l=$_[0];
+	print "$l";
+	if($l=~/.*A, B$/i){
+		return "0C00";
+	}elsif($l=~/.*B, A$/i){
+		return "0D00";	
+	}elsif($l=~/.*A, ([0-9A-B]{2})$/i){
+		$l=~/([0-9A-F]{2})$/i;
+		return "0E".$1;
+	}elsif($l=~/.*B, ([0-9A-B]{2})$/i){
+		$l=~/([0-9A-F]{2})$/i;
+		return "0F".$1;
+	}
+}
+
+#compiles SUB command
+sub subt{
+	$l=$_[0];
+	print $l;
+	if($l=~/.*A, B$/i){
+		return "1000";
+	}elsif($l=~/.*B, A$/i){
+		return "1100";
+	}elsif($l=~/.*A, ([0-9A-F]{2})$/i){
+		$l=~/([0-9A-F]{2})$/i;
+		return "12".$1;
+	}elsif($l=~/.*B, ([0-9A-F]{2})$/i){
+		$l=~/([0-9A-F]{2})$/i;
+		return "13".$1;
 	}
 }
