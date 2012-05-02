@@ -213,7 +213,7 @@ public class Window extends JFrame implements Runnable{
 	}
 	
 	/**
-	 * reads in opcodes from a file into a String array and then returns the array
+	 * reads in opcodes from a file into a ArrayList and then returns it
 	 * @param filename
 	 * @return
 	 */
