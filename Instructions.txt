@@ -1,8 +1,8 @@
 Each opcode must me entered as a 16 bit (4 digit) hex number
-EG the opcode 03 to move the value of B to the A 
+EG the opcode 03 to move the value of B to the A
 register must be written as 0300
 
-Please note, that at the moment I have not written 
+Please note, that at the moment I have not written
 a compiler from assembly language to opcodes
 
 Move Value to A: 01**
@@ -24,3 +24,11 @@ Subtract the value of B from A and store result in A: 10
 Subtract the value of A from B and store result in B: 11
 Subtract value from A and store result in A: 12
 Subtract value from B and store result in B: 13
+Move Value from PC to A: 14
+Move Value from PC to B: 15
+Push Value of PC to stack: 16
+Push Value of A to stack: 17
+Push Value of B to stack: 18
+Pops Value from stack to PC: 19
+Pops Value from stack to A: 1A
+Pops Value from stack to B: 1B

@@ -9,6 +9,7 @@ public class BusSystem {
 	public Register A;
 	public Register B;
 	public ALU alu;
+	public MemStack stack;
 
 	/**
 	 * Initializes the bus system
@@ -20,5 +21,6 @@ public class BusSystem {
 		pc = new PC((short)0);
 		A = new Register((short)0);
 		B = new Register((short)0);
+		stack = new MemStack();
 	}
 }

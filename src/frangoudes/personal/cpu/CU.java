@@ -51,12 +51,17 @@ public class CU {
 		case 17:{this.op11();}break;
 		case 18:{this.op12(value);}break;
 		case 19:{this.op13(value);}break;
+		case 20:{this.op14();}break;
+		case 21:{this.op15();}break;
+		case 22:{this.op16();}break;
+		case 23:{this.op17();}break;
+		case 24:{this.op18();}break;
+		case 25:{this.op19();}break;
+		case 26:{this.op1A();}break;
+		case 27:{this.op1B();}break;
 		}
-		
-		System.out.println(bus.A.getH());
-		System.out.println(bus.B.getH());
 	}
-	
+
 	/*------------------------------OPCODE DECLARATIONS--------------------------------------*/
 	/*---------------------------------------------------------------------------------------*/
 	/**
@@ -67,7 +72,7 @@ public class CU {
 	public void op01(String value){
 		mov(bus.A, value);
 	}
-	
+
 	/**
 	 * @return the bus
 	 */
@@ -83,7 +88,7 @@ public class CU {
 	public void op02(String value){
 		mov(bus.B, value);
 	}
-	
+
 	/**
 	 * opcode 03
 	 * move value in B into A
@@ -91,7 +96,7 @@ public class CU {
 	public void op03(){
 		mov(bus.A, bus.B);
 	}
-	
+
 	/**
 	 * opcode 04
 	 * move value in A into B
@@ -99,7 +104,7 @@ public class CU {
 	public void op04(){
 		mov(bus.B, bus.A);
 	}
-	
+
 	/**
 	 * opcode 05
 	 * move value in memory address defined by hex String into A
@@ -111,7 +116,7 @@ public class CU {
 		bus.mdr.getData();
 		mov(bus.A, bus.mdr);
 	}
-	
+
 	/**
 	 * opcode 06
 	 * move value in memory address defined by hex String into B
@@ -240,6 +245,63 @@ public class CU {
 		short a = bus.B.getD();
 		mov(bus.B,(short)(a-b));
 	}
+	
+	/**
+	 * Moves the value of the PC into the A register
+	 */
+	public void op14(){
+		mov(bus.A, bus.pc);
+	}
+	
+	/**
+	 * Moves the value of the PC into the B register
+	 */
+	public void op15(){
+		mov(bus.B, bus.pc);
+	}
+	
+	/**
+	 * pushes value of PC onto the stack
+	 */
+	public void op16(){
+		bus.stack.push(bus.pc.getH());
+	}
+	
+	/**
+	 * pushes the value of the A register onto the stack
+	 */
+	public void op17(){
+		bus.stack.push(bus.A.getH());
+	}
+	
+	/**
+	 * pushes the value of the B register onto the stack
+	 */
+	public void op18(){
+		bus.stack.push(bus.B.getH());
+	}
+	
+	/**
+	 * pops value from stack into the PC
+	 */
+	public void op19(){
+		mov(bus.pc, bus.stack.pop());
+	}
+	
+	/**
+	 * pops value from stack into the A register
+	 */
+	public void op1A(){
+		mov(bus.A, bus.stack.pop());
+	}
+	
+	/**
+	 * pops value from stack into the B register
+	 */
+	public void op1B(){
+		mov(bus.B, bus.stack.pop());
+	}
+	
 	/*---------------------------------------------------------------------------------------*/
 	/*---------------------------------------------------------------------------------------*/
 	

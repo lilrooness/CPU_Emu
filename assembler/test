@@ -1,0 +1,6 @@
+push a
+push b
+push pc
+pop a
+pop b
+pop pc

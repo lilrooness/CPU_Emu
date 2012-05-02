@@ -4,7 +4,6 @@ if(scalar(@ARGV)<2){
 }
 
 #load assmebly file
-
 open(FILE, $ARGV[0]);
 @commands = <FILE>;
 my @opcodes;
@@ -18,6 +17,10 @@ for$command(@commands){
 		push(@opcodes, add($command));
 	}elsif($command=~m/^SUB.*/i){
 		push(@opcodes, subt($command));
+	}elsif($command=~m/^PUSH.*/i){
+		push(@opcodes, stackPush($command));
+	}elsif($command=~m/^POP.*/i){
+		push(@opcodes, stackPop($command));
 	}else{
 		print("Error in line $l");
 		die();
@@ -58,9 +61,13 @@ sub mov{
 		return "0700";
 	}elsif($l=~/.*PC, B$/i){
 		return "0800";
-	}elsif($l=~ /PC, ([0-9A-F]{2})$/i){
+	}elsif($l=~ /.*PC, ([0-9A-F]{2})$/i){
 		$l=~/([0-9A-F]{2})$/i;
 		return "09".$1;
+	}elsif($l=~ /.*A, PC$/i){
+		return "1400";
+	}elsif($l=~ /.*B, PC$/i){
+		return "1500";
 	}else{
 		print("Error in line $l");
 		die();
@@ -99,6 +106,36 @@ sub subt{
 	}elsif($l=~/.*B, ([0-9A-F]{2})$/i){
 		$l=~/([0-9A-F]{2})$/i;
 		return "13".$1;
+	}else{
+		print("Error in line $l");
+		die();
+	}
+}
+
+#compiles PUSH command
+sub stackPush{
+	$l=$_[0];
+	if($l=~/.* A$/i){
+		return "1700";
+	}elsif($l=~/.* B$/i){
+		return "1800";
+	}elsif($l=~/.* PC$/i){
+		return "1600";
+	}else{
+		print("Error in line $l");
+		die();
+	}
+}
+
+#compiles POP command
+sub stackPop{
+	$l=$_[0];
+	if($l=~/.* A/i){
+		return "1A00";
+	}elsif($l=~/.* B/i){
+		return "1B00";
+	}elsif($l=~/.* PC/i){
+		return "1900";
 	}else{
 		print("Error in line $l");
 		die();
