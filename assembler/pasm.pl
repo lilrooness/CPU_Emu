@@ -4,12 +4,9 @@ if(scalar(@ARGV)<2){
 }
 
 #load assmebly file
-open(FILE, $ARGV[0]) or die("File not found <".$ARGV[0].">\n");
-#load opcodes file
-open(OPCODES, "opcodes") or die("Cannot find opcodes file\n");
 
+open(FILE, $ARGV[0]);
 @commands = <FILE>;
-@available = <OPCODES>;
 my @opcodes;
 
 for$command(@commands){
@@ -21,11 +18,13 @@ for$command(@commands){
 		push(@opcodes, add($command));
 	}elsif($command=~m/^SUB.*/i){
 		push(@opcodes, subt($command));
+	}else{
+		print("Error in line $l");
+		die();
 	}
 }
 
-print join("\n",@opcodes);
-print "\n";
+#save the assembled opcodes to file specified
 open(OUTPUT, '>',$ARGV[1]);
 print OUTPUT join("\n",@opcodes);
 close(OUTPUT);
@@ -33,7 +32,6 @@ close(OUTPUT);
 #compiles a MOV command
 sub mov{
 	$l=$_[0];
-	print "$l";
 	if($l=~/.*A, B$/i){
 		return "0300";
 	}elsif($l=~/.*B, A$/i){
@@ -72,7 +70,6 @@ sub mov{
 #compiles an ADD command
 sub add{
 	$l=$_[0];
-	print "$l";
 	if($l=~/.*A, B$/i){
 		return "0C00";
 	}elsif($l=~/.*B, A$/i){
@@ -83,13 +80,15 @@ sub add{
 	}elsif($l=~/.*B, ([0-9A-B]{2})$/i){
 		$l=~/([0-9A-F]{2})$/i;
 		return "0F".$1;
+	}else{
+		print("Error in line $l");
+		die();
 	}
 }
 
 #compiles SUB command
 sub subt{
 	$l=$_[0];
-	print $l;
 	if($l=~/.*A, B$/i){
 		return "1000";
 	}elsif($l=~/.*B, A$/i){
@@ -100,5 +99,8 @@ sub subt{
 	}elsif($l=~/.*B, ([0-9A-F]{2})$/i){
 		$l=~/([0-9A-F]{2})$/i;
 		return "13".$1;
+	}else{
+		print("Error in line $l");
+		die();
 	}
 }

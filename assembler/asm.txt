@@ -1,3 +1,0 @@
-mov a, 01
-mov b, 01
-add a, b
