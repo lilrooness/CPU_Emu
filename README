@@ -1,4 +1,6 @@
-16 Bit CPU Emulator with 1024 16 bit slots of memory and a stack.
+16 Bit CPU Emulator with 1024 16 bit slots of memory, 
+an instruction set and a stack.
+
 Please note: No inturrupt system is as yet implemented but I mean 
 to add that functionallity after I develop some virtual hardware 
 for it (screen, keyboard input system ect . . .).
