@@ -7,5 +7,6 @@ public class Run {
 	 */
 	public static void main(String[] args) {
 		new Window(600, 400);
+		new ScreenWindow(100, 100);
 	}
 }

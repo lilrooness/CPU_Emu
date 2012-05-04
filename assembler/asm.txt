@@ -1,0 +1,4 @@
+mov a, 0a
+mov b, 0a
+add a, b
+mov b, a

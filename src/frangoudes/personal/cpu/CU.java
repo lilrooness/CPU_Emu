@@ -8,14 +8,14 @@ public class CU {
 	
 	public CU(String[] program){
 		bus = new BusSystem();
-		bus.memory.setProgram(program);
+		bus.programMemory.setProgram(program);
 	}
 	
 	/**
 	 * fetches the current opcode from memory
 	 */
 	public void fetch(){
-		opcode = bus.memory.fetch(bus.pc.getD());
+		opcode = bus.programMemory.fetch(bus.pc.getD());
 		bus.pc.increment();
 	}
 	

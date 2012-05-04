@@ -29,10 +29,10 @@ public class MDR extends Register {
 	}
 	
 	public void getData(){
-		this.mov(this.bus.memory.getH(value));
+		this.mov(BusSystem.memory.getH(value));
 	}
 	
 	public void putData(){
-		bus.memory.put(bus.mar.getD(), value);
+		BusSystem.memory.put(bus.mar.getD(), value);
 	}
 }

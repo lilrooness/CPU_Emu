@@ -2,16 +2,9 @@ package frangoudes.personal.cpu;
 
 public class Memory {
 	
-	private static short[] array;
+	private static short[] array = new short[1024];
 	private String[] program;
-	
-	/**
-	 * Initializes the memory with the size parsed
-	 * @param size
-	 */
-	public Memory(int size){
-		array = new short[size];
-	}
+
 	
 	/**
 	 * returns the value (as a hex String) at 
@@ -19,7 +12,7 @@ public class Memory {
 	 * @param address
 	 * @return
 	 */
-	public String getH(String address){
+	public static String getH(String address){
 		int index = Integer.parseInt(address, 16);
 		return Integer.toHexString(array[index]);
 	}
@@ -30,7 +23,7 @@ public class Memory {
 	 * @param address
 	 * @return
 	 */
-	public String getH(int address){
+	public static String getH(int address){
 		return Integer.toHexString(array[address]);
 	}
 	
@@ -40,7 +33,7 @@ public class Memory {
 	 * @param address
 	 * @return
 	 */
-	public short getD(String address){
+	public static short getD(String address){
 		int index = Integer.parseInt(address, 16);
 		return array[index];
 	}
@@ -51,23 +44,23 @@ public class Memory {
 	 * @param address
 	 * @return
 	 */
-	public short getD(int address){
+	public static short getD(int address){
 		return array[address];
 	}
 	
-	public void put(int address, short value){
+	public static void put(int address, short value){
 		array[address] = value;
 	}
 	
-	public void put(String address, String value){
+	public static void put(String address, String value){
 		array[Integer.parseInt(address, 16)] = Short.parseShort(value, 16);
 	}
 	
-	public void put(String address, short value){
+	public static void put(String address, short value){
 		array[Integer.parseInt(address, 16)] = value;
 	}
 	
-	public void put(int address, String value){
+	public static void put(int address, String value){
 		array[address] = Short.parseShort(value, 16);
 	}
 	
@@ -87,6 +80,25 @@ public class Memory {
 	 */
 	public void setProgram(String[] program) {
 		this.program = program;
+	}
+	
+	public static void setMemSize(short size){
+		array = new short[size];
+	}
+	
+	/**
+	 * returns a section of memory between two decimal 
+	 * values (useful for buffering IO to hardware)
+	 * @param from
+	 * @param to
+	 * @return
+	 */
+	public static int[] getInclusiveBuffer(int from, int to){
+		int[] buffer = new int[(to - from)];
+		for(int i=from; i<to; i++){
+			buffer[i-from] = array[i];
+		}
+		return buffer;
 	}
 	
 }
