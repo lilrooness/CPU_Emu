@@ -25,6 +25,7 @@ public class ScreenPanel extends JPanel implements Runnable{
 		driver = new ScreenDriver();
 		loop = new Thread(this);
 		loop.start();
+		this.setVisible(true);
 	}
 	
 	@Override
@@ -52,8 +53,9 @@ public class ScreenPanel extends JPanel implements Runnable{
 				case Screen.BLUE:{
 					g.setColor(Color.BLUE);
 				};break;
+				default:{g.setColor(Color.BLACK);}break;
 				}
-				g.drawRect(j*10, i*10, 10, 10);
+				g.fillRect(j*10, i*10, 10, 10);
 			}
 		}
 	}
@@ -63,6 +65,13 @@ public class ScreenPanel extends JPanel implements Runnable{
 	 */
 	public int getWidth() {
 		return width;
+	}
+
+	/**
+	 * @return the driver
+	 */
+	public ScreenDriver getDriver() {
+		return driver;
 	}
 
 	/**

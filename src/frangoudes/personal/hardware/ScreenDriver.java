@@ -1,6 +1,5 @@
 package frangoudes.personal.hardware;
 
-import frangoudes.personal.cpu.BusSystem;
 import frangoudes.personal.cpu.Memory;
 
 public class ScreenDriver {
@@ -12,18 +11,24 @@ public class ScreenDriver {
 		screenDim = 10;
 		screenBuffer = new int[screenDim*screenDim];
 		screen = new Screen(screenDim);
+		System.out.println(screenBuffer.length);
+		
 	}
 	
 	/**
 	 * Copies the contents of the buffer to the screens array
 	 */
 	public void refresh(){
-		screenBuffer = Memory.getInclusiveBuffer(0, 10);
-		for(int i=0; i<screenBuffer.length; i++){
+		int inc = 0;
+		screenBuffer = Memory.getInclusiveBuffer(0, 100);
+		for(int i=0; i<screenDim; i++){
 			for(int j=0; j<screenDim; j++){
-				screen.getScreen()[i/screenDim][j] = screenBuffer[i]; 
+				screen.getScreen()[i][j] = screenBuffer[inc]; 
+				inc++;
 			}
 		}
+		//test pixel
+		screen.getScreen()[5][5] = 1;
 	}
 
 	/**

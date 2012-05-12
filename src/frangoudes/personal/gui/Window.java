@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import frangoudes.personal.cpu.Control;
 
 /**
- * Controlls the GUI and interfaces with the CPU back end
+ * Controls the GUI and interfaces with the CPU back end
  * @author Joe
  *
  */

@@ -24,15 +24,24 @@ public class MDR extends Register {
 		this.bus = bus;
 	}
 	
+	/**
+	 * Gets the address stored in the MAR
+	 */
 	public void getAddress(){
 		this.mov(bus.mar.getH());
 	}
 	
+	/**
+	 * Gets Data from memory at address
+	 */
 	public void getData(){
-		this.mov(BusSystem.memory.getH(value));
+		this.mov(Memory.getH(value));
 	}
 	
+	/**
+	 * Puts Data into memory at address
+	 */
 	public void putData(){
-		BusSystem.memory.put(bus.mar.getD(), value);
+		Memory.put(bus.mar.getD(), value);
 	}
 }

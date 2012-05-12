@@ -1,4 +1,2 @@
-mov a, 0a
-mov b, 0a
-add a, b
-mov b, a
+mov a, 01
+mov $01, a
